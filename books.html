@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>图书管理系统</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+   
+
+      <!-- 导航条 -->
+           <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">图书管理系统</a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">图书管理 <span class="sr-only">(current)</span></a></li>
+              <li><a href="#">借书/还书</a></li>
+              
+            </ul>
+            <form class="navbar-form navbar-left" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="请输入...">
+              </div>
+              <button type="submit" class="btn btn-default">搜索</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#">注册/登录</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更多 <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#">Separated link</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+        <!-- 导航条 -->
+
+    <!-- 图书管理 -->
+    <div class="container">
+
+        <ul class="nav nav-pills">
+          <li id="addBooks" role="presentation" data-toggle="modal"><a href="#">新增图书</a></li>
+          <li role="presentation" class="active"><a href="#">上架/下架</a></li>
+          <li role="presentation"><a href="#">修改图书信息</a></li>
+        </ul>
+
+        <table id="bookTable" class="table table-striped table-bordered table-hover">
+           <thead>
+              <tr>
+                <th>书名</th>
+                <th>作者</th>
+                <th>出版社</th>
+                <th>价格</th>
+                <th>出版日期</th>
+                <th>类别</th>
+                <th>状态</th>
+                <th>是否借出</th>
+              </tr>
+           </thead>
+         
+
+           <tbody></tbody>
+         
+        </table> 
+
+    </div>
+    <!-- 图书管理 -->
+
+  
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">新增图书信息</h4>
+      </div>
+      <div class="modal-body">
+
+        <!-- 新增图书表格 -->
+
+        <!-- <table class="table">
+          <tr>
+            <th>书名</th>
+            <th>作者</th>
+            <th>出版日期</th>
+            <th>价格</th>
+            <th>分类</th>
+          </tr>
+          <tr>
+            <td>HTML5 + CSS3</td>
+            <td>李东博</td>
+            <td>2012.6</td>
+            <td>69.80</td>
+            <td>计算机</td>
+          </tr>
+        </table> -->
+
+        <form class="form-horizontal">
+         
+          <div class="form-group">
+            <label for="inputPassword" class="col-sm-2 control-label">书名</label>
+            <div class="col-sm-10">
+              <input type="texttexttext" class="form-control" id="booksName" placeholder="请输入您要新增的书名">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputPassword" class="col-sm-2 control-label">作者</label>
+            <div class="col-sm-4">
+              <input type="texttext" class="form-control" id="booksAuthor" placeholder="请输入作者">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputPassword" class="col-sm-2 control-label">出版社</label>
+            <div class="col-sm-10">
+              <input type="texttext" class="form-control" id="publisher" placeholder="请输入出版社">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputPassword" class="col-sm-2 control-label">价格</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="price" placeholder="请输入价格">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputPassword" class="col-sm-2 control-label">出版日期</label>
+            <div class="col-sm-4">
+              <input type="texttext" class="form-control" id="booksDate" placeholder="请输入出版日期">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputPassword" class="col-sm-2 control-label">类别</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="classify" placeholder="请输入分类">
+            </div>
+          </div>
+
+
+        </form>
+
+        <!-- 新增图书表格 -->
+
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button id="save" type="button" class="btn btn-primary">保存并退出</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+   
+
+
+
+
+    <script src="jquery-3.1.0.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+  </body>
+</html>
