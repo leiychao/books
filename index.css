@@ -1,0 +1,36 @@
+.load-wp {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-color: #fff;
+	/*opacity: 0.5;*/
+}
+
+.load-img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 230px;
+	height: 230px;
+	margin:-115px 0 0 -115px;
+	background-position: -77px -20px;
+	background-image: url(img/loading.gif);
+}
+
+.loading-sm {
+	background: url(img/loading-sm.gif) center  no-repeat;
+	background-color: #fff !important;
+	color :#000 !important;
+}
+
+#bookTable {
+	margin-top: 10px;
+}
+
+.z-index0 {
+	z-index: 0;
+}
+
+

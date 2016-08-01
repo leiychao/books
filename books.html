@@ -9,6 +9,7 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link rel="stylesheet" href="index.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -42,12 +43,12 @@
               <li><a href="#">借书/还书</a></li>
               
             </ul>
-            <form class="navbar-form navbar-left" role="search">
+            <!-- <form class="navbar-form navbar-left">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="请输入...">
+                <input id="search" type="text" class="form-control" placeholder="请输入...">
               </div>
-              <button type="submit" class="btn btn-default">搜索</button>
-            </form>
+              <button id="searchBtn" class="btn btn-default">搜索</button>
+            </form> -->
             <ul class="nav navbar-nav navbar-right">
               <li><a href="#">注册/登录</a></li>
               <li class="dropdown">
@@ -68,16 +69,28 @@
 
     <!-- 图书管理 -->
     <div class="container">
-
-        <ul class="nav nav-pills">
-          <li id="addBooks" role="presentation" data-toggle="modal"><a href="#">新增图书</a></li>
-          <li role="presentation" class="active"><a href="#">上架/下架</a></li>
-          <li role="presentation"><a href="#">修改图书信息</a></li>
-        </ul>
-
+      <div class="row">
+      <div class="col-md-9">
+        <button  id="addBooks" type="button" class="btn btn-primary">新增图书</button>
+        <button type="button" class="btn">图书列表</button>
+        <button id="alterBooks" type="button" class="btn btn-info" disabled="disabled">修改图书信息</button>
+        <button id="delBooks" type="button" class="btn btn-danger" disabled="disabled">删除图书</button>
+      </div>
+    
+       <div class="col-lg-3">
+        <div class="input-group z-index0">
+          <input id="searchIpt" type="text" class="form-control" placeholder="请输入...">
+          <span class="input-group-btn">
+            <button id="searchBtn" class="btn btn-default" type="button">搜索</button>
+          </span>
+        </div><!-- /input-group -->
+       </div><!-- /.col-lg-3 -->
+      
+      </div>
         <table id="bookTable" class="table table-striped table-bordered table-hover">
            <thead>
               <tr>
+                <th><input id="ttCheckBox" type="checkbox"></th>
                 <th>书名</th>
                 <th>作者</th>
                 <th>出版社</th>
@@ -93,15 +106,20 @@
            <tbody></tbody>
          
         </table> 
+        
+        <!-- 分页 START-->
+        <nav>      
+          <ul id="renderPage" class="pagination" ></ul>
+          <div class="page-jumper">
+            <button id="jumpBtn">跳转到第</button>
+            <input id="jumpIpt" type="text" value="1">
+            页
+          </div>
+        </nav>
+        <!-- 分页 END -->
 
     </div>
     <!-- 图书管理 -->
-
-  
-
-
-
-
 
 
 <!-- Modal -->
@@ -116,24 +134,8 @@
 
         <!-- 新增图书表格 -->
 
-        <!-- <table class="table">
-          <tr>
-            <th>书名</th>
-            <th>作者</th>
-            <th>出版日期</th>
-            <th>价格</th>
-            <th>分类</th>
-          </tr>
-          <tr>
-            <td>HTML5 + CSS3</td>
-            <td>李东博</td>
-            <td>2012.6</td>
-            <td>69.80</td>
-            <td>计算机</td>
-          </tr>
-        </table> -->
-
-        <form class="form-horizontal">
+        <form id="listForm" class="form-horizontal" onsubmit="">
+              <input type="hidden" id="hiddenId">
          
           <div class="form-group">
             <label for="inputPassword" class="col-sm-2 control-label">书名</label>
@@ -166,16 +168,42 @@
           <div class="form-group">
             <label for="inputPassword" class="col-sm-2 control-label">出版日期</label>
             <div class="col-sm-4">
-              <input type="texttext" class="form-control" id="booksDate" placeholder="请输入出版日期">
+              <input type="texttext" class="form-control" id="booksDate" placeholder="请选择出版日期">
             </div>
           </div>
 
           <div class="form-group">
             <label for="inputPassword" class="col-sm-2 control-label">类别</label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="classify" placeholder="请输入分类">
+              <select id="fenleiSel" class="form-control">
+                <option value=0>请选择</option>
+              </select>
             </div>
           </div>
+          <div class="form-group">
+            <label for="inputPassword" class="col-sm-2 control-label">上架状态</label>
+            <div class="col-sm-4">
+              <label  id="inlineRadio2"  class="radio-inline">
+                <input class="radio" type="radio" name="status" id="status1" value="1" checked> 上架
+              </label>
+              <label id="inlineRadio3"  class="radio-inline">
+                <input class="radio" type="radio" name="status" data-ceshi="ceshi" id="status2" value="0"> 下架
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputPassword" class="col-sm-2 control-label">借出状态</label>
+            <div class="col-sm-4">
+             <label  id="inlineRadio4"  class="radio-inline">
+              <input class="radio" type="radio" name="borrow_status" id="borrow_status1" value="0" checked> 借出
+            </label>
+            <label id="inlineRadio5" class="radio-inline">
+              <input class="radio" type="radio" name="borrow_status" data-ceshi="ceshi" id="borrow_status2" value="1"> 未借出
+            </label>
+            </div>
+          </div>
+
 
 
         </form>
@@ -192,6 +220,13 @@
   </div>
 </div>
 <!-- Modal -->
+
+<!-- loading -->
+<div class="load">
+  <div class="load-wp"></div>
+  <div class="load-img"></div>
+</div>
+<!-- loading -->
    
 
 
@@ -199,6 +234,8 @@
 
     <script src="jquery-3.1.0.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
     <script type="text/javascript" src="index.js"></script>
   </body>
 </html>
